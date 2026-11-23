@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f1">
+  <meta name="description" content="Discover your next favorite read at Chapter & Co.">
+  <title>Chapter &amp; Co. — Find your next favorite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Chapter and Company home"><span class="brand-mark">C</span><span>chapter<span class="brand-amp">&amp;</span>co.</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#home" data-view="home">Home</a>
+      <a class="nav-link" href="#books" data-view="books">Books</a>
+      <a class="nav-link" href="#categories" data-view="categories">Categories</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-button search-toggle" id="search-toggle" aria-label="Search books">⌕</button>
+      <button class="text-button" id="account-button">Log in</button>
+      <button class="cart-button" id="cart-button" aria-label="Open shopping cart">Bag <span id="cart-count">0</span></button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> A little more wonder, every day</p>
+        <h1>Stories worth<br>staying up for<span class="accent-dot">.</span></h1>
+        <p class="hero-description">Thoughtful reads, timeless favorites, and the stories you didn't know you needed — all in one lovely place.</p>
+        <a class="primary-button" href="#books" data-view="books">Explore the collection <span>↗</span></a>
+        <div class="hero-note"><span class="avatar-stack"><i>J</i><i>M</i><i>A</i></span><span>Loved by readers, near and far</span></div>
+      </div>
+      <div class="hero-art" aria-label="A curated selection of books">
+        <div class="sun-disc"></div>
+        <div class="hero-book hero-book-back"><div class="book-cover cover-sage"><span>THE ART<br>OF SLOW<br>LIVING</span><small>ELENA MOSS</small></div></div>
+        <div class="hero-book hero-book-front"><div class="book-cover cover-rust"><span>WILD<br>PLACES</span><small>JAMES HOLLOWAY</small><i class="cover-illustration">✳</i></div></div>
+        <div class="hero-caption"><span class="caption-line"></span><span>THE SUNDAY EDIT<br><b>Stories for softer days</b></span></div>
+        <span class="art-sparkle sparkle-one">✳</span><span class="art-sparkle sparkle-two">✴</span>
+      </div>
+    </section>
+
+    <section class="search-panel" id="search-panel" aria-label="Find a book">
+      <form id="search-form">
+        <span class="search-symbol">⌕</span>
+        <label class="sr-only" for="search-input">Search by title or author</label>
+        <input id="search-input" type="search" placeholder="Search by title, author, or a feeling..." autocomplete="off">
+        <label class="sr-only" for="category-filter">Filter by category</label>
+        <select id="category-filter"><option value="">All categories</option></select>
+        <button class="search-submit" type="submit">Find a book <span>→</span></button>
+      </form>
+    </section>
+
+    <section class="collection-section" id="books">
+      <div class="section-heading">
+        <div><p class="eyebrow">A good place to begin</p><h2 id="collection-title">Reader favorites<span class="accent-dot">.</span></h2></div>
+        <a href="#books" class="underlined-link" data-view="books">View all books <span>↗</span></a>
+      </div>
+      <div class="category-pills" id="categories" aria-label="Browse categories"></div>
+      <div class="book-grid" id="book-grid" aria-live="polite">
+        <p class="loading-message">Finding your next favorite…</p>
+      </div>
+      <p class="empty-state hidden" id="empty-state">No books found. Try a different search or category.</p>
+    </section>
+
+    <section class="admin-section hidden" id="admin-panel">
+      <div class="section-heading"><div><p class="eyebrow">Store management</p><h2>Admin dashboard<span class="accent-dot">.</span></h2></div></div>
+      <div class="admin-columns">
+        <form class="admin-card" id="admin-book-form">
+          <p class="eyebrow">Catalog</p><h3>Add or update a book</h3>
+          <input id="admin-book-id" type="hidden">
+          <div class="admin-form-grid">
+            <label>Title<input name="title" required maxlength="180"></label><label>Author<input name="author" required maxlength="120"></label>
+            <label>Category<select id="admin-category" name="categoryId" required></select></label><label>ISBN<input name="isbn" maxlength="24"></label>
+            <label>Price<input name="price" type="number" min="0.01" step="0.01" required></label><label>Stock<input name="stock" type="number" min="0" step="1" required></label>
+            <label>Rating<input name="rating" type="number" min="0" max="5" step="0.1" value="4.5"></label><label>Cover image URL<input name="imageUrl" type="url" maxlength="500"></label>
+            <label class="admin-description">Description<textarea name="description" rows="3" maxlength="3000"></textarea></label>
+          </div>
+          <button class="primary-button" id="admin-save" type="submit">Add book <span>→</span></button>
+        </form>
+        <div class="admin-card"><p class="eyebrow">Inventory</p><h3>Books in the shop</h3><div id="admin-book-list"></div></div>
+        <div class="admin-card admin-orders"><p class="eyebrow">Fulfillment</p><h3>Customer orders</h3><div id="admin-order-list"></div></div>
+      </div>
+    </section>
+
+    <section class="quote-banner">
+      <span class="quote-mark">“</span>
+      <blockquote>A book is a little world you can carry in your hands.</blockquote>
+      <p>— The Chapter &amp; Co. reading room</p>
+    </section>
+
+    <section class="newsletter">
+      <div><p class="eyebrow">A note from the bookshop</p><h2>Good books.<br>Occasionally, in your inbox.</h2></div>
+      <p>Our monthly reading list, new arrivals, and small joys. No noise, just good stories.</p>
+      <form id="newsletter-form"><label class="sr-only" for="newsletter-email">Your email address</label><input id="newsletter-email" type="email" placeholder="Your email address" required><button type="submit" aria-label="Subscribe">→</button></form>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark">C</span><span>chapter<span class="brand-amp">&amp;</span>co.</span></a><p>A good story changes everything.</p><span>© <span id="year"></span> Chapter &amp; Co.</span></footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="overlay hidden" id="overlay"></div>
+  <aside class="drawer" id="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-header"><div><p class="eyebrow">Your little stack</p><h2>Your bag <span id="drawer-count">(0)</span></h2></div><button class="close-button" data-close-drawer aria-label="Close cart">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-summary"><div class="subtotal-row"><span>Subtotal</span><strong id="cart-total">$0.00</strong></div><p>Shipping and taxes calculated at checkout.</p><button class="primary-button checkout-button" id="checkout-button">Continue to checkout <span>→</span></button></div>
+  </aside>
+
+  <dialog class="app-dialog" id="account-dialog">
+    <button class="close-button dialog-close" data-close-dialog aria-label="Close">×</button>
+    <div class="dialog-heading"><p class="eyebrow">Welcome to the reading room</p><h2 id="auth-title">Welcome back<span class="accent-dot">.</span></h2><p id="auth-subtitle">Log in to keep your bookish things together.</p></div>
+    <form id="auth-form">
+      <label id="name-field" class="hidden">Your name<input id="auth-name" name="name" autocomplete="name"></label>
+      <label>Email address<input id="auth-email" name="email" type="email" autocomplete="email" required></label>
+      <label>Password<input id="auth-password" name="password" type="password" minlength="8" autocomplete="current-password" required></label>
+      <button class="primary-button full-button" id="auth-submit" type="submit">Log in <span>→</span></button>
+    </form>
+    <p class="switch-auth" id="switch-auth">New around here? <button type="button" id="auth-mode-toggle">Create an account</button></p>
+    <button class="text-button order-history-button hidden" id="order-history-button">View my orders</button>
+    <button class="text-button order-history-button hidden" id="logout-button">Log out</button>
+  </dialog>
+
+  <dialog class="app-dialog details-dialog" id="details-dialog">
+    <button class="close-button dialog-close" data-close-dialog aria-label="Close">×</button>
+    <div id="book-details"></div>
+  </dialog>
+
+  <dialog class="app-dialog checkout-dialog" id="checkout-dialog">
+    <button class="close-button dialog-close" data-close-dialog aria-label="Close">×</button>
+    <div class="dialog-heading"><p class="eyebrow">Almost a new chapter</p><h2>Delivery details<span class="accent-dot">.</span></h2><p>Where should we send your books?</p></div>
+    <form id="checkout-form">
+      <label>Full name<input name="recipientName" autocomplete="name" required maxlength="120"></label>
+      <label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="24"></label>
+      <label>Street address<input name="addressLine" autocomplete="street-address" required maxlength="240"></label>
+      <div class="form-row"><label>City<input name="city" autocomplete="address-level2" required maxlength="100"></label><label>Postal code<input name="postalCode" autocomplete="postal-code" required maxlength="20"></label></div>
+      <button class="primary-button full-button" type="submit">Place my order <span>→</span></button>
+    </form>
+  </dialog>
+
+  <dialog class="app-dialog orders-dialog" id="orders-dialog">
+    <button class="close-button dialog-close" data-close-dialog aria-label="Close">×</button>
+    <div class="dialog-heading"><p class="eyebrow">Your reading journey</p><h2>Order history<span class="accent-dot">.</span></h2></div>
+    <div id="order-list"></div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
